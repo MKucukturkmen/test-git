@@ -34,34 +34,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := test_git_blink
+BUILD_ARTIFACT_NAME := test-git
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-test_git_blink.elf \
+test-git.elf \
 
 MAP_FILES += \
-test_git_blink.map \
+test-git.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-test_git_blink.list \
+test-git.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: test_git_blink.elf secondary-outputs
+main-build: test-git.elf secondary-outputs
 
 # Tool invocations
-test_git_blink.elf test_git_blink.map: $(OBJS) $(USER_OBJS) C:\Users\mustafa\STM32CubeIDE\workspace_GIT\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "test_git_blink.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\mustafa\STM32CubeIDE\workspace_GIT\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test_git_blink.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+test-git.elf test-git.map: $(OBJS) $(USER_OBJS) C:\Users\mustafa\STM32CubeIDE\workspace_GIT_TEST\test-git\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "test-git.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\mustafa\STM32CubeIDE\workspace_GIT_TEST\test-git\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test-git.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -70,14 +70,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-test_git_blink.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "test_git_blink.list"
+test-git.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "test-git.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) default.size.stdout test_git_blink.elf test_git_blink.list test_git_blink.map
+	-$(RM) default.size.stdout test-git.elf test-git.list test-git.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
